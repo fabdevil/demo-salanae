@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salanae Bistro & Bar — Heart of Downtown Vientiane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #f5efe3;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --rust: #8b3a2a;
+    --sage: #5a6b50;
+    --warm-white: #faf7f1;
+    --dark-bg: #110d06;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Josefin Sans', sans-serif;
+    background: var(--dark-bg);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: linear-gradient(to bottom, rgba(17,13,6,0.95), transparent);
+    transition: background 0.4s;
+  }
+  nav.scrolled { background: rgba(17,13,6,0.97); }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em;
+    color: var(--gold); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--cream); text-decoration: none; opacity: 0.8;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-reserve {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid var(--gold); color: var(--gold);
+    padding: 0.5rem 1.2rem; text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+  }
+  .nav-reserve:hover { background: var(--gold); color: var(--ink); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 70%, rgba(139,58,42,0.12) 0%, transparent 60%),
+      linear-gradient(165deg, #1c1508 0%, #0e0b05 50%, #1a0e08 100%);
+  }
+  /* Decorative diagonal lines */
+  .hero-lines {
+    position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+  }
+  .hero-lines::before {
+    content: '';
+    position: absolute; top: -10%; left: 40%; width: 1px; height: 130%;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.2), transparent);
+    transform: rotate(-15deg);
+  }
+  .hero-lines::after {
+    content: '';
+    position: absolute; top: -10%; left: 55%; width: 1px; height: 130%;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.1), transparent);
+    transform: rotate(-15deg);
+  }
+  .hero-content {
+    position: relative; text-align: center; z-index: 2;
+    animation: fadeUp 1.2s ease both;
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.9; margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300; line-height: 0.9;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--gold-light);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.55; margin-top: 1.8rem;
+  }
+  .hero-divider {
+    width: 60px; height: 1px; background: var(--gold);
+    margin: 2rem auto; opacity: 0.6;
+  }
+  .hero-ctas { display: flex; gap: 1.2rem; justify-content: center; margin-top: 0.5rem; }
+  .btn-primary {
+    background: var(--gold); color: var(--ink);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 0.9rem 2.2rem; text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid rgba(201,168,76,0.4); color: var(--cream);
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 0.9rem 2.2rem; text-decoration: none;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0.4;
+    animation: bounce 2s ease infinite;
+  }
+  .scroll-hint span { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; }
+  .scroll-hint::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 7rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  .section-tag {
+    font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300; line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+  .gold-rule {
+    width: 50px; height: 1px; background: var(--gold);
+    margin: 1.5rem 0; opacity: 0.7;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--dark-bg); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: linear-gradient(135deg, #1e1609, #2a1c0e);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 3rem; position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: ''; position: absolute; top: 0; right: 0;
+    width: 50%; height: 100%;
+    background: radial-gradient(ellipse at top right, rgba(201,168,76,0.06), transparent);
+  }
+  .about-card-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-style: italic; font-weight: 300;
+    line-height: 1.4; color: var(--cream); opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+  .about-card-attr {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.7;
+  }
+  .about-accent {
+    position: absolute; bottom: -2rem; right: -2rem;
+    width: 120px; height: 120px;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 0;
+  }
+  .about-text p {
+    font-size: 0.85rem; line-height: 1.9; opacity: 0.75;
+    margin-bottom: 1.2rem; letter-spacing: 0.03em;
+  }
+  .about-stats {
+    display: flex; gap: 2.5rem; margin-top: 2.5rem;
+    padding-top: 2rem; border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300; color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0.55; margin-top: 0.3rem;
+  }
+
+  /* ── ATMOSPHERE / EXPERIENCE ── */
+  #experience { background: #0f0b05; }
+  .experience-intro {
+    text-align: center; max-width: 600px; margin: 0 auto 5rem;
+  }
+  .experience-intro p {
+    font-size: 0.85rem; line-height: 1.9; opacity: 0.65; margin-top: 1rem;
+  }
+  .pillars {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  }
+  .pillar {
+    background: linear-gradient(160deg, #1c1508, #130f07);
+    padding: 3rem 2.5rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .pillar:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .pillar-icon {
+    font-size: 1.8rem; margin-bottom: 1.5rem; display: block;
+    filter: grayscale(0.3);
+  }
+  .pillar h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300; margin-bottom: 0.8rem;
+  }
+  .pillar p {
+    font-size: 0.78rem; line-height: 1.8; opacity: 0.6; letter-spacing: 0.02em;
+  }
+
+  /* ── MENU HIGHLIGHTS ── */
+  #menu { background: var(--dark-bg); }
+  .menu-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+  .menu-tabs {
+    display: flex; gap: 0; border-bottom: 1px solid rgba(201,168,76,0.2);
+    margin-bottom: 3.5rem;
+  }
+  .tab {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 0.7rem 1.8rem; cursor: pointer; border-bottom: 2px solid transparent;
+    color: var(--cream); opacity: 0.5; margin-bottom: -1px;
+    transition: opacity 0.2s, border-color 0.2s;
+    background: none; border-top: none; border-left: none; border-right: none;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  .tab.active { opacity: 1; border-bottom-color: var(--gold); color: var(--gold); }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+  .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .menu-item {
+    padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 1rem;
+  }
+  .menu-item:nth-child(odd) { padding-right: 3rem; }
+  .menu-item:nth-child(even) { padding-left: 3rem; border-left: 1px solid rgba(255,255,255,0.05); }
+  .menu-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 300; margin-bottom: 0.3rem;
+  }
+  .menu-item-desc { font-size: 0.72rem; opacity: 0.5; line-height: 1.5; }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: var(--gold); white-space: nowrap; padding-top: 0.1rem;
+  }
+  .menu-note {
+    margin-top: 2.5rem; padding: 1.5rem 2rem;
+    border-left: 2px solid var(--gold);
+    background: rgba(201,168,76,0.04);
+    font-size: 0.75rem; opacity: 0.65; line-height: 1.7; font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  /* ── EVENTS ── */
+  #events { background: #0f0b05; }
+  .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .event-card {
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2.5rem;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .event-card:hover { border-color: rgba(201,168,76,0.5); }
+  .event-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .event-card:hover::before { opacity: 1; }
+  .event-day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; font-weight: 300; color: rgba(201,168,76,0.25);
+    line-height: 1; margin-bottom: 1rem;
+  }
+  .event-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300; margin-bottom: 0.5rem;
+  }
+  .event-time {
+    font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.8; margin-bottom: 1rem;
+  }
+  .event-desc { font-size: 0.78rem; opacity: 0.55; line-height: 1.7; }
+  .event-badge {
+    display: inline-block; margin-top: 1.2rem;
+    font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.3); color: var(--gold);
+    padding: 0.3rem 0.8rem;
+  }
+
+  /* ── GALLERY STRIP ── */
+  #gallery { background: var(--dark-bg); padding: 5rem 0; overflow: hidden; }
+  .gallery-title { text-align: center; margin-bottom: 3rem; }
+  .gallery-strip {
+    display: flex; gap: 1rem; padding: 0 2.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .gallery-strip::-webkit-scrollbar { display: none; }
+  .gallery-frame {
+    flex: 0 0 280px; height: 360px;
+    background: linear-gradient(135deg, #2a1c0e, #1a1208);
+    border: 1px solid rgba(201,168,76,0.12);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .gallery-frame:hover { border-color: rgba(201,168,76,0.35); }
+  .gallery-frame-inner {
+    text-align: center; padding: 2rem; opacity: 0.4;
+  }
+  .gallery-frame-inner .gi { font-size: 3rem; display: block; margin-bottom: 0.8rem; }
+  .gallery-frame-inner p { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .gallery-frame:nth-child(2n) { margin-top: 2rem; }
+  .gallery-frame:nth-child(3n) { margin-top: -1rem; }
+  /* Color tints per frame */
+  .gallery-frame:nth-child(1) { background: linear-gradient(135deg, #2d1a08, #1a0e05); }
+  .gallery-frame:nth-child(2) { background: linear-gradient(135deg, #1a1c0e, #0f1008); }
+  .gallery-frame:nth-child(3) { background: linear-gradient(135deg, #1a0e0e, #0f0808); }
+  .gallery-frame:nth-child(4) { background: linear-gradient(135deg, #1a1608, #100e05); }
+  .gallery-frame:nth-child(5) { background: linear-gradient(135deg, #0e1a14, #081009); }
+  .gallery-social-note {
+    text-align: center; margin-top: 2.5rem;
+    font-size: 0.72rem; opacity: 0.45;
+  }
+  .gallery-social-note a { color: var(--gold); text-decoration: none; }
+  .gallery-social-note a:hover { text-decoration: underline; }
+
+  /* ── VISIT / INFO ── */
+  #visit { background: #0c0904; }
+  .visit-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: start; }
+  .info-block { margin-bottom: 2.5rem; }
+  .info-label {
+    font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.8; margin-bottom: 0.7rem;
+  }
+  .info-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 300; line-height: 1.6;
+  }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.8rem;
+  }
+  .hours-row .day { opacity: 0.55; }
+  .hours-row .time { color: var(--gold-light); }
+  .map-placeholder {
+    background: linear-gradient(135deg, #1c1508, #130f07);
+    border: 1px solid rgba(201,168,76,0.15);
+    height: 320px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem;
+  }
+  .map-placeholder span { font-size: 2.5rem; opacity: 0.3; }
+  .map-placeholder p { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.3; }
+  .map-placeholder a {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
+    padding: 0.5rem 1.2rem; text-decoration: none;
+    transition: background 0.3s; margin-top: 0.5rem;
+  }
+  .map-placeholder a:hover { background: rgba(201,168,76,0.1); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080604;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 4rem 0 2rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; color: var(--gold); margin-bottom: 1rem;
+    display: block;
+  }
+  .footer-brand p { font-size: 0.75rem; opacity: 0.45; line-height: 1.8; }
+  .footer-col h4 {
+    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); opacity: 0.7; margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul li a {
+    font-size: 0.78rem; color: var(--cream); opacity: 0.5;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .footer-col ul li a:hover { opacity: 0.9; }
+  .footer-social { display: flex; gap: 1rem; margin-top: 1.5rem; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; text-decoration: none; color: var(--cream);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .social-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 0.65rem; opacity: 0.3; letter-spacing: 0.05em; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .nav-reserve { display: none; }
+    .about-grid, .visit-grid, .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .pillars { grid-template-columns: 1fr; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-item:nth-child(even) { padding-left: 0; border-left: none; }
+    .menu-item:nth-child(odd) { padding-right: 0; }
+    .events-grid { grid-template-columns: 1fr; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+    .menu-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Salanae</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#visit" class="nav-reserve">Reserve a Table</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Vientiane, Laos · Est. 2024</p>
+    <h1 class="hero-title">
+      Salanae<br>
+      <em>Bistro &amp; Bar</em>
+    </h1>
+    <p class="hero-sub">Exotic Indochine Food &amp; Drinks · Downtown Vientiane</p>
+    <div class="hero-divider"></div>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-primary">Explore the Menu</a>
+      <a href="#visit" class="btn-ghost">Find Us</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <p class="about-card-quote">"Passion for life, good times and great gatherings — a toast to the legendary heart of downtown Vientiane."</p>
+          <span class="about-card-attr">— Salanae Bistro &amp; Bar</span>
+          <div class="about-accent"></div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p class="section-tag">Our Story</p>
+        <h2 class="section-title">Where Indochine<br><em>Flavours Come Alive</em></h2>
+        <div class="gold-rule"></div>
+        <p>Salanae Bistro &amp; Bar is a beacon of hospitality in the heart of downtown Vientiane — a vibrant gathering place where the warmth of Laotian culture meets modern, stylish social dining.</p>
+        <p>Our kitchen celebrates the depth and complexity of Indochine cuisine: bespoke exotic dishes crafted with fresh local ingredients, alongside international favourites that honour every palate. Pair them with signature cocktails inspired by the flavours and botanicals of Laos.</p>
+        <p>Whether you arrive for a leisurely dinner, a lively Ladies' Night, or simply to share drinks with friends, Salanae's welcoming ambience makes every moment memorable.</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-num">100+</div>
+            <div class="stat-label">Menu Items</div>
+          </div>
+          <div>
+            <div class="stat-num">5★</div>
+            <div class="stat-label">Guest Ratings</div>
+          </div>
+          <div>
+            <div class="stat-num">7</div>
+            <div class="stat-label">Nights a Week</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="experience-intro reveal">
+      <p class="section-tag">The Experience</p>
+      <h2 class="section-title">More Than a Meal —<br><em>A Destination</em></h2>
+      <p>Every visit to Salanae is crafted around three pillars: extraordinary food, creative cocktails, and an atmosphere that invites you to linger.</p>
+    </div>
+    <div class="pillars reveal">
+      <div class="pillar">
+        <span class="pillar-icon">🍜</span>
+        <h3>Indochine Cuisine</h3>
+        <p>From delicate Laotian delicacies to international favourites, our kitchen bridges tradition and innovation. Local ingredients, global inspiration — every dish tells a story.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">🍸</span>
+        <h3>Signature Cocktails</h3>
+        <p>Our bartenders craft bespoke cocktails using local spirits and fresh botanicals. Classic pours alongside unique creations that showcase the aromatic soul of Laos.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">✨</span>
+        <h3>Stylish Ambience</h3>
+        <p>Modern aesthetics woven with traditional Laotian touches. Warm lighting, outdoor seating, and live music nights create a vibrant social scene unlike anywhere in Vientiane.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <div class="menu-header reveal">
+      <div>
+        <p class="section-tag">Our Menu</p>
+        <h2 class="section-title">Curated<br><em>Flavours</em></h2>
+      </div>
+      <a href="#visit" class="btn-ghost">Full Menu on Request</a>
+    </div>
+    <div class="menu-tabs reveal">
+      <button class="tab active" onclick="switchTab('food', this)">Kitchen</button>
+      <button class="tab" onclick="switchTab('cocktails', this)">Cocktails</button>
+      <button class="tab" onclick="switchTab('drinks', this)">Drinks</button>
+    </div>
+
+    <div id="panel-food" class="menu-panel active reveal">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div><div class="menu-item-name">Larb Moo</div><div class="menu-item-desc">Minced pork with toasted rice, fresh herbs &amp; lime</div></div>
+          <span class="menu-item-price">85k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Salanae Sharing Platter</div><div class="menu-item-desc">Selection of small plates — the perfect way to begin</div></div>
+          <span class="menu-item-price">220k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Grilled River Fish</div><div class="menu-item-desc">Whole fish with lemongrass, chilli &amp; dipping sauces</div></div>
+          <span class="menu-item-price">165k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Laotian Pork Ribs</div><div class="menu-item-desc">Slow-cooked, tamarind glaze, pickled vegetables</div></div>
+          <span class="menu-item-price">180k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Khao Piak Sen</div><div class="menu-item-desc">Traditional rice noodle soup with rich broth</div></div>
+          <span class="menu-item-price">75k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Crispy Spring Rolls</div><div class="menu-item-desc">Five spice pork &amp; glass noodle, sweet chilli</div></div>
+          <span class="menu-item-price">70k</span>
+        </div>
+      </div>
+      <div class="menu-note">Our menu changes seasonally to reflect the freshest local produce. Daily specials are written on the board — ask your server for today's recommendations.</div>
+    </div>
+
+    <div id="panel-cocktails" class="menu-panel reveal">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div><div class="menu-item-name">Mekong Mule</div><div class="menu-item-desc">Lao whisky, fresh ginger, lime, ginger beer</div></div>
+          <span class="menu-item-price">60k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Salanae Sour</div><div class="menu-item-desc">Signature Lao spirit, tamarind, kaffir lime foam</div></div>
+          <span class="menu-item-price">65k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Lemongrass Spritz</div><div class="menu-item-desc">Elderflower, lemongrass, prosecco, cucumber</div></div>
+          <span class="menu-item-price">70k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Jungle Negroni</div><div class="menu-item-desc">Gin, Campari, local herbal vermouth, orange</div></div>
+          <span class="menu-item-price">75k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Pandan Martini</div><div class="menu-item-desc">Vodka, pandan syrup, coconut, lime</div></div>
+          <span class="menu-item-price">65k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Classic Mojito</div><div class="menu-item-desc">White rum, fresh mint, lime, cane sugar, soda</div></div>
+          <span class="menu-item-price">55k</span>
+        </div>
+      </div>
+      <div class="menu-note">All cocktails are crafted fresh to order. Ask our bartenders about non-alcoholic mocktail versions of any signature drink.</div>
+    </div>
+
+    <div id="panel-drinks" class="menu-panel reveal">
+      <div class="menu-grid">
+        <div class="menu-item">
+          <div><div class="menu-item-name">Beerlao Gold</div><div class="menu-item-desc">Laos' iconic premium lager, ice cold</div></div>
+          <span class="menu-item-price">25k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Beerlao Dark</div><div class="menu-item-desc">Rich dark lager with hints of caramel</div></div>
+          <span class="menu-item-price">30k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">House Red / White Wine</div><div class="menu-item-desc">Glass poured from our selected cellar range</div></div>
+          <span class="menu-item-price">50k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Lao–Lao Rice Whisky</div><div class="menu-item-desc">Traditional Lao distilled rice spirit, neat or mixed</div></div>
+          <span class="menu-item-price">35k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Fresh Fruit Juices</div><div class="menu-item-desc">Seasonal fruits blended to order — ask daily selection</div></div>
+          <span class="menu-item-price">20k</span>
+        </div>
+        <div class="menu-item">
+          <div><div class="menu-item-name">Iced Lao Coffee</div><div class="menu-item-desc">Strong brewed Lao coffee, sweetened condensed milk</div></div>
+          <span class="menu-item-price">20k</span>
+        </div>
+      </div>
+      <div class="menu-note">Prices in Lao Kip. Menu is indicative — please ask for our current full drinks list including imported spirits and wines.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-tag">What's On</p>
+      <h2 class="section-title">Weekly<br><em>Happenings</em></h2>
+      <div class="gold-rule"></div>
+    </div>
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-day">WED</div>
+        <h3 class="event-name">Ladies' Night</h3>
+        <p class="event-time">Every Wednesday · 7 PM onwards</p>
+        <p class="event-desc">Salanae's most celebrated weekly ritual. Ladies drink free on select cocktails and enjoy exclusive table service with special pricing on the full menu.</p>
+        <span class="event-badge">Weekly</span>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-day">FRI</div>
+        <h3 class="event-name">Happy Hour</h3>
+        <p class="event-time">Friday &amp; Saturday · 5 PM – 8 PM</p>
+        <p class="event-desc">Kick off the weekend right. Special pricing across all draught beers, house wines, and selected cocktails. Perfect for after-work unwinding with friends.</p>
+        <span class="event-badge">Weekly</span>
+      </div>
+      <div class="event-card reveal">
+        <div class="event-day">SAT</div>
+        <h3 class="event-name">Live Music Nights</h3>
+        <p class="event-time">Selected Saturdays · 8 PM – Late</p>
+        <p class="event-desc">Local and regional artists take the stage, bringing the perfect soundtrack to your evening. Check our Instagram for the monthly schedule and featured performers.</p>
+        <span class="event-badge">Monthly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-title reveal">
+    <p class="section-tag" style="text-align:center">Atmosphere</p>
+    <h2 class="section-title" style="text-align:center">A Glimpse of<br><em>Salanae</em></h2>
+  </div>
+  <div class="gallery-strip">
+    <div class="gallery-frame"><div class="gallery-frame-inner"><span class="gi">🍜</span><p>Kitchen &amp; Food</p></div></div>
+    <div class="gallery-frame"><div class="gallery-frame-inner"><span class="gi">🍸</span><p>Cocktails</p></div></div>
+    <div class="gallery-frame"><div class="gallery-frame-inner"><span class="gi">🌿</span><p>Interior</p></div></div>
+    <div class="gallery-frame"><div class="gallery-frame-inner"><span class="gi">🎶</span><p>Live Music</p></div></div>
+    <div class="gallery-frame"><div class="gallery-frame-inner"><span class="gi">✨</span><p>Events</p></div></div>
+  </div>
+  <p class="gallery-social-note">
+    Follow us on
+    <a href="https://www.instagram.com/salanae_bistro_bar/" target="_blank" rel="noopener">@salanae_bistro_bar</a>
+    &amp;
+    <a href="https://www.facebook.com/SalanaeBistroBar/" target="_blank" rel="noopener">Facebook</a>
+    for daily photos &amp; updates.
+  </p>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="container">
+    <div class="reveal">
+      <p class="section-tag">Find Us</p>
+      <h2 class="section-title">Visit<br><em>Salanae</em></h2>
+      <div class="gold-rule"></div>
+    </div>
+    <div class="visit-grid">
+      <div class="reveal">
+        <div class="info-block">
+          <p class="info-label">Address</p>
+          <p class="info-val">Heart of Downtown Vientiane<br>Vientiane Capital, Lao PDR</p>
+        </div>
+        <div class="info-block">
+          <p class="info-label">Opening Hours</p>
+          <div class="hours-row"><span class="day">Monday – Thursday</span><span class="time">5:00 PM – 12:00 AM</span></div>
+          <div class="hours-row"><span class="day">Friday</span><span class="time">5:00 PM – 1:00 AM</span></div>
+          <div class="hours-row"><span class="day">Saturday</span><span class="time">4:00 PM – 1:00 AM</span></div>
+          <div class="hours-row"><span class="day">Sunday</span><span class="time">4:00 PM – 11:00 PM</span></div>
+        </div>
+        <div class="info-block">
+          <p class="info-label">Reservations &amp; Enquiries</p>
+          <p class="info-val">Message us on Facebook or Instagram<br>for table bookings &amp; private events</p>
+        </div>
+        <div class="footer-social" style="margin-top:1rem;">
+          <a class="social-btn" href="https://www.instagram.com/salanae_bistro_bar/" target="_blank" rel="noopener" title="Instagram">📷</a>
+          <a class="social-btn" href="https://www.facebook.com/SalanaeBistroBar/" target="_blank" rel="noopener" title="Facebook">f</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="map-placeholder">
+          <span>📍</span>
+          <p>Downtown Vientiane</p>
+          <a href="https://www.google.com/maps/search/Salanae+Bistro+Bar+Vientiane" target="_blank" rel="noopener">Open in Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Salanae</span>
+        <p>Passion for life, good times and great gatherings — a legendary location in the heart of downtown Vientiane with bespoke exotic Indochine food and drinks in a stylish, social ambience.</p>
+        <div class="footer-social" style="margin-top:1.5rem">
+          <a class="social-btn" href="https://www.instagram.com/salanae_bistro_bar/" target="_blank" rel="noopener">📷</a>
+          <a class="social-btn" href="https://www.facebook.com/SalanaeBistroBar/" target="_blank" rel="noopener">f</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#visit">Visit</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Cuisine</h4>
+        <ul>
+          <li><a href="#menu">Indochine Kitchen</a></li>
+          <li><a href="#menu">Signature Cocktails</a></li>
+          <li><a href="#menu">Local Beers &amp; Spirits</a></li>
+          <li><a href="#menu">Daily Specials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://www.facebook.com/SalanaeBistroBar/" target="_blank" rel="noopener">Message on Facebook</a></li>
+          <li><a href="https://www.instagram.com/salanae_bistro_bar/" target="_blank" rel="noopener">DM on Instagram</a></li>
+          <li><a href="#events">Private Events</a></li>
+          <li><a href="#visit">Table Reservations</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Salanae Bistro &amp; Bar · Vientiane, Lao PDR</p>
+      <p>Crafted with passion for Laos' dining scene</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => io.observe(r));
+
+  // Menu tabs
+  function switchTab(id, el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('panel-' + id).classList.add('active');
+  }
+</script>
+</body>
+</html>
